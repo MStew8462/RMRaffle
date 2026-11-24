@@ -9,34 +9,22 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#D40511">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI0Q0MDUxMSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyODAiPlJXPC90ZXh0Pgo8L3N2Zz4=">
-  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI0Q0MDUxMSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyODAiPlJXPC90ZXh0Pgo8L3N2Zz4=">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI0Q0MDUxMSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjRkZDQzAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyMjAiPlJNPC90ZXh0Pgo8L3N2Zz4=">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI0Q0MDUxMSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjRkZDQzAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyMjAiPlJNPC90ZXh0Pgo8L3N2Zz4=">
 
-  <title>December Raffle Wheel</title>
+  <title>Royal Mail December Raffle</title>
   
   <style>
     :root {
-      --bg-color: #f8f9fa;
-      --text-color: #222222;
-      --sub-text: #666666;
-      --card-bg: #ffffff;
-      --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      --border-color: rgba(0,0,0,0.08);
-      --stripe-bg: #fcfcfc;
+      --bg-color: #18191c;
+      --surface-elevated: #222428;
+      --surface-input: #2b2e34;
+      --text-color: #f3f4f6;
+      --sub-text: #a1a7b3;
+      --border-color: rgba(255, 255, 255, 0.09);
       --rm-red: #D40511;
-      --rm-red-dark: #b0040e;
-      --rm-yellow: #ffcc00;
-      --rm-dark: #1f1f1f;
-    }
-
-    body.dark-mode {
-      --bg-color: #121212;
-      --text-color: #f0f0f0;
-      --sub-text: #aaaaaa;
-      --card-bg: #1e1e1e;
-      --card-shadow: 0 2px 10px rgba(0,0,0,0.4);
-      --border-color: #333333;
-      --stripe-bg: #252525;
+      --rm-red-dark: #a30009;
+      --rm-yellow: #FFCC00;
     }
 
     * {
@@ -55,33 +43,58 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      transition: background-color 0.25s, color 0.25s;
     }
 
-    /* HEADER */
+    /* ROYAL MAIL HEADER */
     header {
       background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark));
       color: white;
-      padding: 12px 14px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45);
+      border-bottom: 2px solid var(--rm-yellow);
       position: sticky;
       top: 0;
       z-index: 20;
     }
-    body.dark-mode header {
-      background: #1a1a1a;
-      border-bottom: 1px solid #333;
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    header h1 {
+    .rm-cruciform {
+      height: 36px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.35));
+    }
+
+    .brand-titles {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-titles h1 {
       margin: 0;
-      font-size: 1.05rem;
-      font-weight: 800;
+      font-size: 1.02rem;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.7px;
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--rm-yellow);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 1px;
     }
 
     .header-actions {
@@ -91,26 +104,25 @@
     }
 
     .hdr-btn {
-      background: rgba(255,255,255,0.2);
-      border: none;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       color: white;
       font-size: 13px;
-      font-weight: 700;
-      padding: 6px 11px;
+      font-weight: 800;
+      padding: 6px 12px;
       border-radius: 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 4px;
-      backdrop-filter: blur(5px);
     }
     .hdr-btn:active {
-      background: rgba(255,255,255,0.35);
+      background: rgba(0, 0, 0, 0.5);
     }
 
     .hdr-btn.icon-only {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       padding: 0;
       justify-content: center;
       border-radius: 50%;
@@ -131,10 +143,10 @@
 
     /* DATE & PRIZE CARD */
     .draw-card {
-      background: var(--card-bg);
+      background: var(--surface-elevated);
       border-radius: 12px;
       padding: 12px 14px;
-      box-shadow: var(--card-shadow);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border-color);
     }
 
@@ -149,38 +161,42 @@
     .date-display {
       display: flex;
       flex-direction: column;
+      flex: 1;
     }
 
     .date-label {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--rm-red);
+      letter-spacing: 0.7px;
+      color: var(--rm-yellow);
     }
 
     .date-select {
       appearance: none;
       -webkit-appearance: none;
-      background: var(--bg-color);
+      background-color: var(--surface-input);
       color: var(--text-color);
-      border: 1px solid var(--border-color);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 8px;
-      padding: 7px 28px 7px 10px;
+      padding: 8px 30px 8px 10px;
       font-size: 15px;
       font-weight: 800;
       margin-top: 3px;
       cursor: pointer;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D40511' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      width: 100%;
+      max-width: 240px;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFCC00' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
       background-repeat: no-repeat;
-      background-position: right 8px center;
+      background-position: right 9px center;
       background-size: 14px;
     }
 
     .pool-badge {
-      background: rgba(212, 5, 17, 0.1);
-      color: var(--rm-red);
-      padding: 6px 10px;
+      background: rgba(212, 5, 17, 0.22);
+      border: 1px solid rgba(212, 5, 17, 0.5);
+      color: #ff8a90;
+      padding: 7px 11px;
       border-radius: 8px;
       font-size: 12px;
       font-weight: 800;
@@ -188,7 +204,7 @@
       white-space: nowrap;
     }
 
-    /* PRIZE SLOTS */
+    /* PRIZE SLOTS (NEUTRAL DRAW 1 & DRAW 2) */
     .prizes-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -196,22 +212,24 @@
     }
 
     .prize-box {
-      background: var(--bg-color);
+      background: var(--surface-input);
       border: 2px solid var(--border-color);
       border-radius: 10px;
       padding: 9px 10px;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: all 0.2s;
     }
 
     .prize-box.active-draw {
       border-color: var(--rm-red);
-      background: rgba(212, 5, 17, 0.05);
+      background: rgba(212, 5, 17, 0.12);
     }
 
     .prize-box.won-draw {
       border-color: #2e7d32;
-      background: rgba(46, 125, 50, 0.08);
+      background: rgba(46, 125, 50, 0.15);
     }
 
     .prize-tag {
@@ -223,15 +241,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .prize-box.active-draw .prize-tag {
-      color: var(--rm-red);
+      color: var(--rm-yellow);
     }
 
     .prize-box.won-draw .prize-tag {
-      color: #2e7d32;
+      color: #66bb6a;
     }
 
     .prize-name {
@@ -241,45 +259,68 @@
       line-height: 1.25;
     }
 
+    .prize-winner-row {
+      margin-top: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
     .prize-winner-tag {
-      margin-top: 5px;
       font-size: 12px;
-      font-weight: 800;
-      color: #2e7d32;
-      background: rgba(46, 125, 50, 0.14);
-      padding: 2px 6px;
+      font-weight: 900;
+      color: #a5d6a7;
+      background: rgba(46, 125, 50, 0.35);
+      padding: 3px 7px;
       border-radius: 5px;
-      display: inline-block;
+    }
+
+    .reset-single-draw-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #e0e0e0;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .reset-single-draw-btn:active {
+      background: var(--rm-red);
+      color: white;
     }
 
     /* LIVE TICKER BAR */
     .ticker-bar {
-      background: var(--card-bg);
+      background: var(--surface-elevated);
       border: 2px solid var(--rm-red);
       border-radius: 12px;
       padding: 8px 14px;
       text-align: center;
-      box-shadow: var(--card-shadow);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .ticker-caption {
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--sub-text);
+      color: var(--rm-yellow);
     }
 
     .ticker-name {
-      font-size: 1.55rem;
+      font-size: 1.6rem;
       font-weight: 900;
-      color: var(--text-color);
-      letter-spacing: 0.3px;
-      min-height: 1.9rem;
+      color: #ffffff;
+      letter-spacing: 0.4px;
+      min-height: 1.95rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
     /* WHEEL AREA */
@@ -299,7 +340,7 @@
       height: 100%;
       display: block;
       border-radius: 50%;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
     }
 
     /* TOP POINTER PIN */
@@ -313,7 +354,7 @@
       border-left: 16px solid transparent;
       border-right: 16px solid transparent;
       border-top: 32px solid var(--rm-yellow);
-      filter: drop-shadow(0 3px 4px rgba(0,0,0,0.45));
+      filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.6));
       z-index: 10;
       transform-origin: 50% 6px;
       transition: transform 0.05s ease-out;
@@ -329,15 +370,15 @@
       width: 82px;
       height: 82px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #D40511, #9e0009);
+      background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark));
       color: white;
-      border: 4px solid #ffffff;
+      border: 4px solid var(--rm-yellow);
       font-size: 16px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
       z-index: 8;
       display: flex;
       align-items: center;
@@ -350,7 +391,8 @@
     }
 
     .spin-center-btn:disabled {
-      background: #666666;
+      background: #4a4d54;
+      border-color: #777;
       cursor: not-allowed;
       opacity: 0.9;
     }
@@ -367,17 +409,19 @@
       padding: 15px 16px;
       background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark));
       color: white;
-      border: none;
+      border: 1px solid rgba(255, 204, 0, 0.45);
       border-radius: 30px;
       font-size: 16px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(212, 5, 17, 0.35);
+      box-shadow: 0 4px 14px rgba(212, 5, 17, 0.45);
     }
     .primary-spin-btn:disabled {
-      background: #777;
+      background: #3a3d42;
+      border-color: transparent;
+      color: #888;
       box-shadow: none;
       cursor: not-allowed;
     }
@@ -385,7 +429,7 @@
     .secondary-btn {
       flex: 1;
       padding: 15px 12px;
-      background: var(--card-bg);
+      background: var(--surface-elevated);
       color: var(--text-color);
       border: 1px solid var(--border-color);
       border-radius: 30px;
@@ -393,14 +437,16 @@
       font-weight: 800;
       text-transform: uppercase;
       cursor: pointer;
-      box-shadow: var(--card-shadow);
+    }
+    .secondary-btn:active {
+      background: var(--surface-input);
     }
 
-    /* WINNER OVERLAY MODAL (LARGE DISTANCE-READABLE TEXT) */
+    /* WINNER OVERLAY MODAL */
     #winnerModal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.86);
       backdrop-filter: blur(6px);
       z-index: 100;
       display: none;
@@ -420,13 +466,13 @@
     }
 
     .winner-card {
-      background: var(--card-bg);
+      background: var(--surface-elevated);
       width: 100%;
       max-width: 560px;
       border-radius: 20px;
       padding: 28px 20px;
       text-align: center;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
       border: 3px solid var(--rm-yellow);
       position: relative;
       z-index: 102;
@@ -448,14 +494,14 @@
     .winner-big-name {
       font-size: clamp(2.4rem, 9vw, 4.2rem);
       font-weight: 900;
-      color: var(--text-color);
+      color: #ffffff;
       line-height: 1.08;
       margin: 8px 0 16px 0;
       word-break: break-word;
     }
 
     .winner-prize-box {
-      background: rgba(255, 204, 0, 0.18);
+      background: rgba(255, 204, 0, 0.14);
       border: 2px solid var(--rm-yellow);
       border-radius: 12px;
       padding: 12px 14px;
@@ -473,11 +519,8 @@
     .winner-prize-text {
       font-size: clamp(1.2rem, 4.5vw, 1.65rem);
       font-weight: 900;
-      color: var(--rm-red);
-      margin-top: 3px;
-    }
-    body.dark-mode .winner-prize-text {
       color: var(--rm-yellow);
+      margin-top: 3px;
     }
 
     .winner-actions {
@@ -502,12 +545,24 @@
 
     .redraw-btn {
       width: 100%;
-      padding: 11px;
-      background: transparent;
-      color: var(--sub-text);
+      padding: 12px;
+      background: var(--surface-input);
+      color: #e0e0e0;
       border: 1px solid var(--border-color);
       border-radius: 12px;
       font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .exclude-leaver-btn {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      color: #ff8a90;
+      border: 1px dashed rgba(255, 138, 144, 0.4);
+      border-radius: 12px;
+      font-size: 12.5px;
       font-weight: 700;
       cursor: pointer;
     }
@@ -543,10 +598,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    body.dark-mode .modal-header {
-      background: #1a1a1a;
-      border-bottom: 1px solid #333;
+      border-bottom: 2px solid var(--rm-yellow);
     }
 
     .history-scroll {
@@ -560,18 +612,18 @@
     }
 
     .history-day-card {
-      background: var(--card-bg);
+      background: var(--surface-elevated);
       border-radius: 10px;
       padding: 12px 14px;
       margin-bottom: 10px;
-      box-shadow: var(--card-shadow);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
       border: 1px solid var(--border-color);
     }
 
     .history-day-title {
       font-size: 14px;
       font-weight: 900;
-      color: var(--rm-red);
+      color: var(--rm-yellow);
       margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.4px;
@@ -581,14 +633,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 7px 0;
+      padding: 8px 0;
       border-top: 1px solid var(--border-color);
       font-size: 14px;
+      gap: 10px;
     }
 
     .history-winner-name {
       font-weight: 900;
-      color: var(--text-color);
+      color: #ffffff;
       font-size: 15px;
     }
 
@@ -606,8 +659,9 @@
     }
 
     #errorBox {
-      background: #ffdddd;
-      color: #a00;
+      background: rgba(212, 5, 17, 0.2);
+      border: 1px solid var(--rm-red);
+      color: #ff999e;
       padding: 10px;
       border-radius: 8px;
       font-size: 13px;
@@ -619,11 +673,26 @@
 <body>
 
   <header>
-    <h1>December Raffle</h1>
+    <div class="brand-lockup">
+      <!-- Royal Mail Cruciform Logo (Uses logo.png if present in repo, otherwise crisp inline SVG) -->
+      <img src="logo.png" alt="Royal Mail" class="rm-cruciform" onerror="this.style.display='none'; document.getElementById('rmSvgLogo').style.display='block';">
+      <svg id="rmSvgLogo" class="rm-cruciform" viewBox="0 0 140 96" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+        <rect x="2" y="2" width="136" height="92" rx="10" fill="#D40511" stroke="#FFCC00" stroke-width="4"/>
+        <line x1="70" y1="6" x2="70" y2="90" stroke="#FFCC00" stroke-width="5"/>
+        <line x1="6" y1="48" x2="134" y2="48" stroke="#FFCC00" stroke-width="5"/>
+        <text x="38" y="34" fill="#FFFFFF" font-family="Arial Black, sans-serif" font-weight="900" font-size="20" text-anchor="middle">Royal</text>
+        <text x="102" y="72" fill="#FFFFFF" font-family="Arial Black, sans-serif" font-weight="900" font-size="20" text-anchor="middle">Mail</text>
+      </svg>
+
+      <div class="brand-titles">
+        <h1>December Raffle</h1>
+        <span class="brand-sub">Delivery Office Draw</span>
+      </div>
+    </div>
+
     <div class="header-actions">
       <button id="soundToggle" class="hdr-btn icon-only" aria-label="Toggle Sound">🔊</button>
       <button id="historyBtn" class="hdr-btn">History</button>
-      <button id="themeToggle" class="hdr-btn icon-only" aria-label="Toggle Dark Mode">🌙</button>
     </div>
   </header>
 
@@ -642,20 +711,24 @@
 
       <div class="prizes-grid">
         <div class="prize-box active-draw" id="prizeBox1">
-          <div class="prize-tag">
-            <span>1st Draw</span>
-            <span id="prizeStatus1">NEXT</span>
+          <div>
+            <div class="prize-tag">
+              <span>Draw 1</span>
+              <span id="prizeStatus1">NEXT</span>
+            </div>
+            <div class="prize-name" id="prizeText1">Loading...</div>
           </div>
-          <div class="prize-name" id="prizeText1">Loading...</div>
           <div id="prizeWinner1"></div>
         </div>
 
         <div class="prize-box" id="prizeBox2">
-          <div class="prize-tag">
-            <span>2nd Draw</span>
-            <span id="prizeStatus2">WAITING</span>
+          <div>
+            <div class="prize-tag">
+              <span>Draw 2</span>
+              <span id="prizeStatus2">WAITING</span>
+            </div>
+            <div class="prize-name" id="prizeText2">Loading...</div>
           </div>
-          <div class="prize-name" id="prizeText2">Loading...</div>
           <div id="prizeWinner2"></div>
         </div>
       </div>
@@ -676,7 +749,7 @@
 
     <!-- BOTTOM CONTROLS -->
     <div class="bottom-controls">
-      <button class="primary-spin-btn" id="mainSpinBtn">Spin for 1st Prize</button>
+      <button class="primary-spin-btn" id="mainSpinBtn">Spin Draw 1</button>
       <button class="secondary-btn" id="resetAllBtn">Reset Pool</button>
     </div>
   </div>
@@ -687,15 +760,16 @@
   <!-- BIG WINNER MODAL -->
   <div id="winnerModal">
     <div class="winner-card">
-      <div class="winner-draw-label" id="modalDrawBadge">1st Draw Winner</div>
+      <div class="winner-draw-label" id="modalDrawBadge">Draw 1 Winner</div>
       <div class="winner-big-name" id="modalWinnerName">WINNER NAME</div>
       <div class="winner-prize-box">
         <div class="winner-prize-label">Prize Won</div>
         <div class="winner-prize-text" id="modalPrizeName">Prize Description</div>
       </div>
       <div class="winner-actions">
-        <button class="confirm-winner-btn" id="confirmWinnerBtn">Confirm & Remove Name</button>
-        <button class="redraw-btn" id="redrawBtn">Void & Spin Again (Keep Name in Pool)</button>
+        <button class="confirm-winner-btn" id="confirmWinnerBtn">Confirm Winner & Remove Name</button>
+        <button class="redraw-btn" id="redrawBtn">Mistake / Redraw (Keep Name in Pool)</button>
+        <button class="exclude-leaver-btn" id="excludeLeaverBtn">Person Left Company (Remove & Redraw)</button>
       </div>
     </div>
   </div>
@@ -703,9 +777,9 @@
   <!-- WINNERS HISTORY MODAL -->
   <div id="historyModal">
     <div class="modal-header">
-      <div style="font-weight: 800; font-size: 1.05rem; letter-spacing: 0.5px;">WINNERS HISTORY</div>
+      <div style="font-weight: 900; font-size: 1.05rem; letter-spacing: 0.5px;">WINNERS HISTORY</div>
       <div class="header-actions">
-        <button id="clearHistoryBtn" class="hdr-btn">Clear History</button>
+        <button id="clearHistoryBtn" class="hdr-btn">Clear All</button>
         <button id="closeHistoryBtn" class="hdr-btn">Close</button>
       </div>
     </div>
@@ -715,7 +789,6 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // --- DOM ELEMENTS ---
-      const themeToggle = document.getElementById("themeToggle");
       const soundToggle = document.getElementById("soundToggle");
       const historyBtn = document.getElementById("historyBtn");
       const closeHistoryBtn = document.getElementById("closeHistoryBtn");
@@ -751,6 +824,7 @@
       const modalPrizeName = document.getElementById("modalPrizeName");
       const confirmWinnerBtn = document.getElementById("confirmWinnerBtn");
       const redrawBtn = document.getElementById("redrawBtn");
+      const excludeLeaverBtn = document.getElementById("excludeLeaverBtn");
 
       // --- STATE ---
       let allNames = [];
@@ -763,28 +837,15 @@
       let soundEnabled = true;
       let pendingWinner = null;
 
-      // Royal Mail / Festive Wheel Slice Palette
+      // Royal Mail Wheel Slice Palette
       const SLICE_COLORS = [
         { bg: "#D40511", text: "#FFFFFF" }, // Royal Mail Red
-        { bg: "#222222", text: "#FFFFFF" }, // Charcoal Dark
-        { bg: "#FFFFFF", text: "#222222" }, // Crisp White
-        { bg: "#FFCC00", text: "#222222" }  // Gold Yellow
+        { bg: "#2b2e34", text: "#FFFFFF" }, // Charcoal Slate
+        { bg: "#FFFFFF", text: "#18191c" }, // Crisp White
+        { bg: "#FFCC00", text: "#18191c" }  // Royal Mail Gold
       ];
 
-      // --- THEME & SOUND ---
-      if (localStorage.getItem("raffleTheme") === "dark") {
-        document.body.classList.add("dark-mode");
-        themeToggle.textContent = "☀️";
-      }
-
-      themeToggle.onclick = () => {
-        document.body.classList.toggle("dark-mode");
-        const isDark = document.body.classList.contains("dark-mode");
-        themeToggle.textContent = isDark ? "☀️" : "🌙";
-        localStorage.setItem("raffleTheme", isDark ? "dark" : "light");
-        drawWheel();
-      };
-
+      // --- SOUND ---
       soundToggle.onclick = () => {
         soundEnabled = !soundEnabled;
         soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
@@ -843,7 +904,7 @@
         ensureAudio();
         if (!audioCtx) return;
 
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        const notes = [523.25, 659.25, 783.99, 1046.50];
         notes.forEach((freq, idx) => {
           const now = audioCtx.currentTime + idx * 0.11;
           const osc = audioCtx.createOscillator();
@@ -921,8 +982,8 @@
             prizesByDate[dateKey] = {
               date: dateKey,
               label: formatDisplayDate(dateKey),
-              prize1: cols[1] || "Prize 1",
-              prize2: cols[2] || "Prize 2"
+              prize1: cols[1] || "Daily Prize",
+              prize2: cols[2] || cols[1] || "Daily Prize"
             };
           });
 
@@ -973,10 +1034,50 @@
         updateUIForDate();
       };
 
+      // Reset a single draw (Draw 1 or Draw 2) for the selected date
+      window.resetSingleDraw = function(dateKey, drawNum) {
+        if (isSpinning) return;
+        const rec = drawHistory[dateKey];
+        if (!rec || !rec[`draw${drawNum}`]) return;
+
+        const winnerName = rec[`draw${drawNum}`].name;
+        const choice = confirm(
+          `Reset Draw ${drawNum} (${winnerName})?\n\n` +
+          `Press OK to clear this draw.\n` +
+          `(You will be asked next whether to put ${winnerName} back into the wheel pool.)`
+        );
+        if (!choice) return;
+
+        const putBack = confirm(
+          `Put "${winnerName}" BACK into the wheel pool?\n\n` +
+          `• OK = Yes, put back in pool (e.g. spun by mistake)\n` +
+          `• Cancel = No, keep removed (e.g. person left the company)`
+        );
+
+        delete drawHistory[dateKey][`draw${drawNum}`];
+        if (!drawHistory[dateKey].draw1 && !drawHistory[dateKey].draw2) {
+          delete drawHistory[dateKey];
+        }
+        localStorage.setItem("raffleHistory", JSON.stringify(drawHistory));
+
+        if (putBack && allNames.includes(winnerName) && !availableNames.includes(winnerName)) {
+          availableNames.push(winnerName);
+          availableNames = allNames.filter(n => availableNames.includes(n));
+          const removedList = allNames.filter(n => !availableNames.includes(n));
+          localStorage.setItem("raffleRemovedNames", JSON.stringify(removedList));
+        }
+
+        updateUIForDate();
+        drawWheel();
+        if (historyModal.classList.contains("open")) {
+          renderHistory();
+        }
+      };
+
       function updateUIForDate() {
         poolCountBadge.textContent = `${availableNames.length} Name${availableNames.length === 1 ? "" : "s"} Left`;
 
-        const dayPrizes = prizesByDate[selectedDate] || { prize1: "Prize 1", prize2: "Prize 2" };
+        const dayPrizes = prizesByDate[selectedDate] || { prize1: "Prize", prize2: "Prize" };
         const dayRecord = drawHistory[selectedDate] || {};
 
         prizeText1.textContent = dayPrizes.prize1;
@@ -989,8 +1090,13 @@
 
         if (dayRecord.draw1) {
           prizeBox1.classList.add("won-draw");
-          prizeStatus1.textContent = "WON";
-          prizeWinner1.innerHTML = `<span class="prize-winner-tag">${dayRecord.draw1.name}</span>`;
+          prizeStatus1.textContent = "DRAWN";
+          prizeWinner1.innerHTML = `
+            <div class="prize-winner-row">
+              <span class="prize-winner-tag">${dayRecord.draw1.name}</span>
+              <button class="reset-single-draw-btn" onclick="resetSingleDraw('${selectedDate}', 1)">Reset</button>
+            </div>
+          `;
         } else {
           prizeBox1.classList.add("active-draw");
           prizeStatus1.textContent = "NEXT";
@@ -998,8 +1104,13 @@
 
         if (dayRecord.draw2) {
           prizeBox2.classList.add("won-draw");
-          prizeStatus2.textContent = "WON";
-          prizeWinner2.innerHTML = `<span class="prize-winner-tag">${dayRecord.draw2.name}</span>`;
+          prizeStatus2.textContent = "DRAWN";
+          prizeWinner2.innerHTML = `
+            <div class="prize-winner-row">
+              <span class="prize-winner-tag">${dayRecord.draw2.name}</span>
+              <button class="reset-single-draw-btn" onclick="resetSingleDraw('${selectedDate}', 2)">Reset</button>
+            </div>
+          `;
         } else if (dayRecord.draw1) {
           prizeBox2.classList.add("active-draw");
           prizeStatus2.textContent = "NEXT";
@@ -1016,19 +1127,19 @@
         } else if (!dayRecord.draw1) {
           mainSpinBtn.disabled = false;
           centerSpinBtn.disabled = false;
-          mainSpinBtn.textContent = "Spin for 1st Prize";
-          tickerCaption.textContent = `${dayPrizes.label} • 1st Draw`;
+          mainSpinBtn.textContent = "Spin Draw 1";
+          tickerCaption.textContent = `${dayPrizes.label} • Draw 1`;
           tickerName.textContent = "READY TO SPIN";
         } else if (!dayRecord.draw2) {
           mainSpinBtn.disabled = false;
           centerSpinBtn.disabled = false;
-          mainSpinBtn.textContent = "Spin for 2nd Prize";
-          tickerCaption.textContent = `${dayPrizes.label} • 2nd Draw`;
-          tickerName.textContent = "READY FOR 2ND SPIN";
+          mainSpinBtn.textContent = "Spin Draw 2";
+          tickerCaption.textContent = `${dayPrizes.label} • Draw 2`;
+          tickerName.textContent = "READY FOR DRAW 2";
         } else {
           mainSpinBtn.disabled = true;
           centerSpinBtn.disabled = true;
-          mainSpinBtn.textContent = "Both Prizes Drawn Today";
+          mainSpinBtn.textContent = "Both Draws Complete";
           tickerCaption.textContent = `${dayPrizes.label} Complete`;
           tickerName.textContent = "SELECT ANOTHER DATE";
         }
@@ -1049,7 +1160,7 @@
         ctx.arc(cx, cy, radius + 10, 0, Math.PI * 2);
         ctx.fillStyle = "#D40511";
         ctx.fill();
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 5;
         ctx.strokeStyle = "#FFCC00";
         ctx.stroke();
 
@@ -1057,7 +1168,7 @@
         if (count === 0) {
           ctx.beginPath();
           ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-          ctx.fillStyle = "#2c2c2c";
+          ctx.fillStyle = "#222428";
           ctx.fill();
           ctx.fillStyle = "#ffffff";
           ctx.font = "900 32px -apple-system, sans-serif";
@@ -1094,7 +1205,7 @@
           ctx.fill();
 
           ctx.lineWidth = count > 80 ? 1 : 2;
-          ctx.strokeStyle = "rgba(0,0,0,0.2)";
+          ctx.strokeStyle = "rgba(0,0,0,0.28)";
           ctx.stroke();
 
           ctx.save();
@@ -1138,7 +1249,7 @@
         const dayPrizes = prizesByDate[selectedDate];
         const prizeWon = drawNum === 1 ? dayPrizes.prize1 : dayPrizes.prize2;
 
-        tickerCaption.textContent = `Drawing ${drawNum === 1 ? "1st" : "2nd"} Prize...`;
+        tickerCaption.textContent = `Spinning Draw ${drawNum}...`;
 
         const extraSpins = (6 + Math.random() * 3) * Math.PI * 2;
         const randomOffset = Math.random() * Math.PI * 2;
@@ -1197,7 +1308,7 @@
 
       // --- WINNER MODAL & CONFIRMATION ---
       function showWinnerModal(winnerObj) {
-        modalDrawBadge.textContent = `${winnerObj.drawNum === 1 ? "1st" : "2nd"} Draw Winner • ${prizesByDate[selectedDate].label}`;
+        modalDrawBadge.textContent = `Draw ${winnerObj.drawNum} Winner • ${prizesByDate[selectedDate].label}`;
         modalWinnerName.textContent = winnerObj.name;
         modalPrizeName.textContent = winnerObj.prize;
         winnerModal.classList.add("open");
@@ -1233,10 +1344,27 @@
         updateUIForDate();
       };
 
+      excludeLeaverBtn.onclick = () => {
+        if (!pendingWinner) return;
+        const leaverName = pendingWinner.name;
+        const ok = confirm(`Permanently remove "${leaverName}" from the wheel pool without awarding the prize, and spin again?`);
+        if (!ok) return;
+
+        availableNames = availableNames.filter(n => n !== leaverName);
+        const removedList = allNames.filter(n => !availableNames.includes(n));
+        localStorage.setItem("raffleRemovedNames", JSON.stringify(removedList));
+
+        pendingWinner = null;
+        winnerModal.classList.remove("open");
+        stopConfetti();
+        updateUIForDate();
+        drawWheel();
+      };
+
       // --- RESET ALL NAMES ---
       resetAllBtn.onclick = () => {
         if (isSpinning) return;
-        const ok = confirm("Reinstate ALL names back into the wheel pool?");
+        const ok = confirm("Reinstate ALL names from names.csv back into the wheel pool?");
         if (!ok) return;
 
         availableNames = [...allNames];
@@ -1269,8 +1397,9 @@
               <div class="history-item">
                 <div>
                   <div class="history-winner-name">${rec.draw1.name}</div>
-                  <div class="history-prize-name">1st Draw: ${rec.draw1.prize}</div>
+                  <div class="history-prize-name">Draw 1: ${rec.draw1.prize}</div>
                 </div>
+                <button class="reset-single-draw-btn" onclick="resetSingleDraw('${dk}', 1)">Reset</button>
               </div>
             `;
           }
@@ -1279,8 +1408,9 @@
               <div class="history-item">
                 <div>
                   <div class="history-winner-name">${rec.draw2.name}</div>
-                  <div class="history-prize-name">2nd Draw: ${rec.draw2.prize}</div>
+                  <div class="history-prize-name">Draw 2: ${rec.draw2.prize}</div>
                 </div>
+                <button class="reset-single-draw-btn" onclick="resetSingleDraw('${dk}', 2)">Reset</button>
               </div>
             `;
           }
