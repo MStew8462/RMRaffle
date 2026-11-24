@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#D40511">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI0Q0MDUxMSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyODAiPlJXPC90ZXh0Pgo8L3N2Zz4=">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI0Q0MDUxMSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyODAiPlJXPC90ZXh0Pgo8L3N2Zz4=">
+
+  <title>December Raffle Wheel</title>
+  
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --text-color: #222222;
+      --sub-text: #666666;
+      --card-bg: #ffffff;
+      --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --border-color: rgba(0,0,0,0.08);
+      --stripe-bg: #fcfcfc;
+      --rm-red: #D40511;
+      --rm-red-dark: #b0040e;
+      --rm-yellow: #ffcc00;
+      --rm-dark: #1f1f1f;
+    }
+
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+      --sub-text: #aaaaaa;
+      --card-bg: #1e1e1e;
+      --card-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      --border-color: #333333;
+      --stripe-bg: #252525;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.25s, color 0.25s;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark));
+      color: white;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    body.dark-mode header {
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hdr-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(5px);
+    }
+    .hdr-btn:active {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .hdr-btn.icon-only {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 15px;
+    }
+
+    /* MAIN CONTAINER */
+    .main-wrap {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 12px 14px 30px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* DATE & PRIZE CARD */
+    .draw-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-color);
+    }
+
+    .date-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .date-display {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .date-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--rm-red);
+    }
+
+    .date-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 7px 28px 7px 10px;
+      font-size: 15px;
+      font-weight: 800;
+      margin-top: 3px;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D40511' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 14px;
+    }
+
+    .pool-badge {
+      background: rgba(212, 5, 17, 0.1);
+      color: var(--rm-red);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* PRIZE SLOTS */
+    .prizes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .prize-box {
+      background: var(--bg-color);
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      padding: 9px 10px;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .prize-box.active-draw {
+      border-color: var(--rm-red);
+      background: rgba(212, 5, 17, 0.05);
+    }
+
+    .prize-box.won-draw {
+      border-color: #2e7d32;
+      background: rgba(46, 125, 50, 0.08);
+    }
+
+    .prize-tag {
+      font-size: 10.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--sub-text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .prize-box.active-draw .prize-tag {
+      color: var(--rm-red);
+    }
+
+    .prize-box.won-draw .prize-tag {
+      color: #2e7d32;
+    }
+
+    .prize-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-color);
+      line-height: 1.25;
+    }
+
+    .prize-winner-tag {
+      margin-top: 5px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #2e7d32;
+      background: rgba(46, 125, 50, 0.14);
+      padding: 2px 6px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    /* LIVE TICKER BAR */
+    .ticker-bar {
+      background: var(--card-bg);
+      border: 2px solid var(--rm-red);
+      border-radius: 12px;
+      padding: 8px 14px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+
+    .ticker-caption {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--sub-text);
+    }
+
+    .ticker-name {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--text-color);
+      letter-spacing: 0.3px;
+      min-height: 1.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* WHEEL AREA */
+    .wheel-stage {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas#wheelCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 50%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    }
+
+    /* TOP POINTER PIN */
+    .wheel-pointer {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 32px solid var(--rm-yellow);
+      filter: drop-shadow(0 3px 4px rgba(0,0,0,0.45));
+      z-index: 10;
+      transform-origin: 50% 6px;
+      transition: transform 0.05s ease-out;
+    }
+
+    .wheel-pointer.tick-bounce {
+      transform: translateX(-50%) rotate(-18deg);
+    }
+
+    /* CENTRE SPIN BUTTON */
+    .spin-center-btn {
+      position: absolute;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D40511, #9e0009);
+      color: white;
+      border: 4px solid #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      z-index: 8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.12s ease;
+    }
+
+    .spin-center-btn:active:not(:disabled) {
+      transform: scale(0.93);
+    }
+
+    .spin-center-btn:disabled {
+      background: #666666;
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+
+    /* BOTTOM ACTION BAR */
+    .bottom-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .primary-spin-btn {
+      flex: 2;
+      padding: 15px 16px;
+      background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark));
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(212, 5, 17, 0.35);
+    }
+    .primary-spin-btn:disabled {
+      background: #777;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .secondary-btn {
+      flex: 1;
+      padding: 15px 12px;
+      background: var(--card-bg);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+    }
+
+    /* WINNER OVERLAY MODAL (LARGE DISTANCE-READABLE TEXT) */
+    #winnerModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    #winnerModal.open {
+      display: flex;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .winner-card {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 560px;
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      border: 3px solid var(--rm-yellow);
+      position: relative;
+      z-index: 102;
+    }
+
+    .winner-draw-label {
+      display: inline-block;
+      background: var(--rm-red);
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .winner-big-name {
+      font-size: clamp(2.4rem, 9vw, 4.2rem);
+      font-weight: 900;
+      color: var(--text-color);
+      line-height: 1.08;
+      margin: 8px 0 16px 0;
+      word-break: break-word;
+    }
+
+    .winner-prize-box {
+      background: rgba(255, 204, 0, 0.18);
+      border: 2px solid var(--rm-yellow);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 22px;
+    }
+
+    .winner-prize-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--sub-text);
+      letter-spacing: 0.8px;
+    }
+
+    .winner-prize-text {
+      font-size: clamp(1.2rem, 4.5vw, 1.65rem);
+      font-weight: 900;
+      color: var(--rm-red);
+      margin-top: 3px;
+    }
+    body.dark-mode .winner-prize-text {
+      color: var(--rm-yellow);
+    }
+
+    .winner-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .confirm-winner-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--rm-red);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+    }
+
+    .redraw-btn {
+      width: 100%;
+      padding: 11px;
+      background: transparent;
+      color: var(--sub-text);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* CONFETTI CANVAS */
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 101;
+    }
+
+    /* HISTORY FULL-SCREEN MODAL */
+    #historyModal {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-color);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    #historyModal.open {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark));
+      color: white;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    body.dark-mode .modal-header {
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+    }
+
+    .history-scroll {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 12px 14px 60px 14px;
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .history-day-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-color);
+    }
+
+    .history-day-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--rm-red);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-top: 1px solid var(--border-color);
+      font-size: 14px;
+    }
+
+    .history-winner-name {
+      font-weight: 900;
+      color: var(--text-color);
+      font-size: 15px;
+    }
+
+    .history-prize-name {
+      font-size: 12.5px;
+      color: var(--sub-text);
+      font-weight: 600;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--sub-text);
+      font-weight: 700;
+    }
+
+    #errorBox {
+      background: #ffdddd;
+      color: #a00;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>December Raffle</h1>
+    <div class="header-actions">
+      <button id="soundToggle" class="hdr-btn icon-only" aria-label="Toggle Sound">🔊</button>
+      <button id="historyBtn" class="hdr-btn">History</button>
+      <button id="themeToggle" class="hdr-btn icon-only" aria-label="Toggle Dark Mode">🌙</button>
+    </div>
+  </header>
+
+  <div class="main-wrap">
+    <div id="errorBox"></div>
+
+    <!-- DATE & PRIZES CARD -->
+    <div class="draw-card">
+      <div class="date-row">
+        <div class="date-display">
+          <span class="date-label">Draw Date</span>
+          <select id="dateSelect" class="date-select" aria-label="Select Draw Date"></select>
+        </div>
+        <div class="pool-badge" id="poolCountBadge">0 Names Left</div>
+      </div>
+
+      <div class="prizes-grid">
+        <div class="prize-box active-draw" id="prizeBox1">
+          <div class="prize-tag">
+            <span>1st Draw</span>
+            <span id="prizeStatus1">NEXT</span>
+          </div>
+          <div class="prize-name" id="prizeText1">Loading...</div>
+          <div id="prizeWinner1"></div>
+        </div>
+
+        <div class="prize-box" id="prizeBox2">
+          <div class="prize-tag">
+            <span>2nd Draw</span>
+            <span id="prizeStatus2">WAITING</span>
+          </div>
+          <div class="prize-name" id="prizeText2">Loading...</div>
+          <div id="prizeWinner2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE NAME TICKER -->
+    <div class="ticker-bar">
+      <div class="ticker-caption" id="tickerCaption">Ready to Spin</div>
+      <div class="ticker-name" id="tickerName">TAP SPIN TO DRAW</div>
+    </div>
+
+    <!-- WHEEL STAGE -->
+    <div class="wheel-stage">
+      <div class="wheel-pointer" id="wheelPointer"></div>
+      <canvas id="wheelCanvas" width="800" height="800"></canvas>
+      <button class="spin-center-btn" id="centerSpinBtn">SPIN</button>
+    </div>
+
+    <!-- BOTTOM CONTROLS -->
+    <div class="bottom-controls">
+      <button class="primary-spin-btn" id="mainSpinBtn">Spin for 1st Prize</button>
+      <button class="secondary-btn" id="resetAllBtn">Reset Pool</button>
+    </div>
+  </div>
+
+  <!-- CONFETTI OVERLAY -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- BIG WINNER MODAL -->
+  <div id="winnerModal">
+    <div class="winner-card">
+      <div class="winner-draw-label" id="modalDrawBadge">1st Draw Winner</div>
+      <div class="winner-big-name" id="modalWinnerName">WINNER NAME</div>
+      <div class="winner-prize-box">
+        <div class="winner-prize-label">Prize Won</div>
+        <div class="winner-prize-text" id="modalPrizeName">Prize Description</div>
+      </div>
+      <div class="winner-actions">
+        <button class="confirm-winner-btn" id="confirmWinnerBtn">Confirm & Remove Name</button>
+        <button class="redraw-btn" id="redrawBtn">Void & Spin Again (Keep Name in Pool)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WINNERS HISTORY MODAL -->
+  <div id="historyModal">
+    <div class="modal-header">
+      <div style="font-weight: 800; font-size: 1.05rem; letter-spacing: 0.5px;">WINNERS HISTORY</div>
+      <div class="header-actions">
+        <button id="clearHistoryBtn" class="hdr-btn">Clear History</button>
+        <button id="closeHistoryBtn" class="hdr-btn">Close</button>
+      </div>
+    </div>
+    <div class="history-scroll" id="historyList"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // --- DOM ELEMENTS ---
+      const themeToggle = document.getElementById("themeToggle");
+      const soundToggle = document.getElementById("soundToggle");
+      const historyBtn = document.getElementById("historyBtn");
+      const closeHistoryBtn = document.getElementById("closeHistoryBtn");
+      const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+      const historyModal = document.getElementById("historyModal");
+      const historyList = document.getElementById("historyList");
+
+      const dateSelect = document.getElementById("dateSelect");
+      const poolCountBadge = document.getElementById("poolCountBadge");
+      const prizeBox1 = document.getElementById("prizeBox1");
+      const prizeBox2 = document.getElementById("prizeBox2");
+      const prizeStatus1 = document.getElementById("prizeStatus1");
+      const prizeStatus2 = document.getElementById("prizeStatus2");
+      const prizeText1 = document.getElementById("prizeText1");
+      const prizeText2 = document.getElementById("prizeText2");
+      const prizeWinner1 = document.getElementById("prizeWinner1");
+      const prizeWinner2 = document.getElementById("prizeWinner2");
+
+      const tickerCaption = document.getElementById("tickerCaption");
+      const tickerName = document.getElementById("tickerName");
+      const wheelCanvas = document.getElementById("wheelCanvas");
+      const ctx = wheelCanvas.getContext("2d");
+      const wheelPointer = document.getElementById("wheelPointer");
+      const centerSpinBtn = document.getElementById("centerSpinBtn");
+      const mainSpinBtn = document.getElementById("mainSpinBtn");
+      const resetAllBtn = document.getElementById("resetAllBtn");
+      const errorBox = document.getElementById("errorBox");
+
+      // Winner Modal
+      const winnerModal = document.getElementById("winnerModal");
+      const modalDrawBadge = document.getElementById("modalDrawBadge");
+      const modalWinnerName = document.getElementById("modalWinnerName");
+      const modalPrizeName = document.getElementById("modalPrizeName");
+      const confirmWinnerBtn = document.getElementById("confirmWinnerBtn");
+      const redrawBtn = document.getElementById("redrawBtn");
+
+      // --- STATE ---
+      let allNames = [];
+      let availableNames = [];
+      let prizesByDate = {};
+      let drawHistory = {};
+      let selectedDate = "";
+      let currentAngle = 0;
+      let isSpinning = false;
+      let soundEnabled = true;
+      let pendingWinner = null;
+
+      // Royal Mail / Festive Wheel Slice Palette
+      const SLICE_COLORS = [
+        { bg: "#D40511", text: "#FFFFFF" }, // Royal Mail Red
+        { bg: "#222222", text: "#FFFFFF" }, // Charcoal Dark
+        { bg: "#FFFFFF", text: "#222222" }, // Crisp White
+        { bg: "#FFCC00", text: "#222222" }  // Gold Yellow
+      ];
+
+      // --- THEME & SOUND ---
+      if (localStorage.getItem("raffleTheme") === "dark") {
+        document.body.classList.add("dark-mode");
+        themeToggle.textContent = "☀️";
+      }
+
+      themeToggle.onclick = () => {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        themeToggle.textContent = isDark ? "☀️" : "🌙";
+        localStorage.setItem("raffleTheme", isDark ? "dark" : "light");
+        drawWheel();
+      };
+
+      soundToggle.onclick = () => {
+        soundEnabled = !soundEnabled;
+        soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
+      };
+
+      // --- WEB AUDIO SYNTHESIZER (TICKING & WIN FANFARE) + HAPTIC ---
+      let audioCtx = null;
+
+      function ensureAudio() {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) audioCtx = new AudioContext();
+        }
+        if (audioCtx && audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+      }
+
+      function playTick() {
+        if (navigator.vibrate) {
+          navigator.vibrate(8);
+        }
+
+        wheelPointer.classList.add("tick-bounce");
+        clearTimeout(wheelPointer._bounceTimer);
+        wheelPointer._bounceTimer = setTimeout(() => {
+          wheelPointer.classList.remove("tick-bounce");
+        }, 45);
+
+        if (!soundEnabled) return;
+        ensureAudio();
+        if (!audioCtx) return;
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(680, now);
+        osc.frequency.exponentialRampToValueAtTime(180, now + 0.035);
+
+        gain.gain.setValueAtTime(0.22, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.04);
+      }
+
+      function playWinSound() {
+        if (navigator.vibrate) {
+          navigator.vibrate([80, 50, 120, 50, 220]);
+        }
+        if (!soundEnabled) return;
+        ensureAudio();
+        if (!audioCtx) return;
+
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const now = audioCtx.currentTime + idx * 0.11;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.36);
+        });
+      }
+
+      // --- CSV PARSING HELPERS ---
+      function parseCSVLine(line) {
+        const result = [];
+        let cur = "";
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') {
+            inQuotes = !inQuotes;
+          } else if (ch === ',' && !inQuotes) {
+            result.push(cur.trim());
+            cur = "";
+          } else {
+            cur += ch;
+          }
+        }
+        result.push(cur.trim());
+        return result;
+      }
+
+      function formatDisplayDate(isoStr) {
+        const parts = isoStr.split("-");
+        if (parts.length !== 3) return isoStr;
+        const dt = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        if (isNaN(dt.getTime())) return isoStr;
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return `${days[dt.getDay()]} ${dt.getDate()} ${months[dt.getMonth()]}`;
+      }
+
+      // --- LOAD DATA FROM CSV FILES ---
+      async function initApp() {
+        try {
+          const cacheBuster = "?v=" + new Date().getTime();
+          const [namesRes, prizesRes] = await Promise.all([
+            fetch("names.csv" + cacheBuster),
+            fetch("prizes.csv" + cacheBuster)
+          ]);
+
+          if (!namesRes.ok) throw new Error("Could not load names.csv");
+          if (!prizesRes.ok) throw new Error("Could not load prizes.csv");
+
+          const namesText = await namesRes.text();
+          const prizesText = await prizesRes.text();
+
+          // Parse names.csv
+          allNames = namesText
+            .split(/\r?\n/)
+            .slice(1)
+            .map(l => parseCSVLine(l)[0])
+            .filter(n => n && n.length > 0);
+
+          // Parse prizes.csv
+          const prizeLines = prizesText.split(/\r?\n/).slice(1);
+          prizeLines.forEach(line => {
+            if (!line.trim()) return;
+            const cols = parseCSVLine(line);
+            const dateKey = cols[0];
+            if (!dateKey) return;
+            prizesByDate[dateKey] = {
+              date: dateKey,
+              label: formatDisplayDate(dateKey),
+              prize1: cols[1] || "Prize 1",
+              prize2: cols[2] || "Prize 2"
+            };
+          });
+
+          // Load saved state from localStorage
+          const savedHistory = localStorage.getItem("raffleHistory");
+          if (savedHistory) {
+            drawHistory = JSON.parse(savedHistory);
+          }
+
+          const savedRemoved = JSON.parse(localStorage.getItem("raffleRemovedNames") || "[]");
+          availableNames = allNames.filter(n => !savedRemoved.includes(n));
+
+          populateDateDropdown();
+          updateUIForDate();
+          drawWheel();
+        } catch (err) {
+          errorBox.style.display = "block";
+          errorBox.textContent = "Error: " + err.message;
+        }
+      }
+
+      function populateDateDropdown() {
+        dateSelect.innerHTML = "";
+        const dateKeys = Object.keys(prizesByDate).sort();
+
+        const now = new Date();
+        const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+        dateKeys.forEach(dk => {
+          const opt = document.createElement("option");
+          opt.value = dk;
+          opt.textContent = prizesByDate[dk].label;
+          dateSelect.appendChild(opt);
+        });
+
+        if (prizesByDate[todayIso]) {
+          selectedDate = todayIso;
+        } else if (dateKeys.length > 0) {
+          const nextOpen = dateKeys.find(dk => !drawHistory[dk] || !drawHistory[dk].draw1 || !drawHistory[dk].draw2);
+          selectedDate = nextOpen || dateKeys[0];
+        }
+        dateSelect.value = selectedDate;
+      }
+
+      dateSelect.onchange = () => {
+        if (isSpinning) return;
+        selectedDate = dateSelect.value;
+        updateUIForDate();
+      };
+
+      function updateUIForDate() {
+        poolCountBadge.textContent = `${availableNames.length} Name${availableNames.length === 1 ? "" : "s"} Left`;
+
+        const dayPrizes = prizesByDate[selectedDate] || { prize1: "Prize 1", prize2: "Prize 2" };
+        const dayRecord = drawHistory[selectedDate] || {};
+
+        prizeText1.textContent = dayPrizes.prize1;
+        prizeText2.textContent = dayPrizes.prize2;
+
+        prizeBox1.classList.remove("active-draw", "won-draw");
+        prizeBox2.classList.remove("active-draw", "won-draw");
+        prizeWinner1.innerHTML = "";
+        prizeWinner2.innerHTML = "";
+
+        if (dayRecord.draw1) {
+          prizeBox1.classList.add("won-draw");
+          prizeStatus1.textContent = "WON";
+          prizeWinner1.innerHTML = `<span class="prize-winner-tag">${dayRecord.draw1.name}</span>`;
+        } else {
+          prizeBox1.classList.add("active-draw");
+          prizeStatus1.textContent = "NEXT";
+        }
+
+        if (dayRecord.draw2) {
+          prizeBox2.classList.add("won-draw");
+          prizeStatus2.textContent = "WON";
+          prizeWinner2.innerHTML = `<span class="prize-winner-tag">${dayRecord.draw2.name}</span>`;
+        } else if (dayRecord.draw1) {
+          prizeBox2.classList.add("active-draw");
+          prizeStatus2.textContent = "NEXT";
+        } else {
+          prizeStatus2.textContent = "WAITING";
+        }
+
+        if (availableNames.length === 0) {
+          mainSpinBtn.disabled = true;
+          centerSpinBtn.disabled = true;
+          mainSpinBtn.textContent = "All Names Drawn";
+          tickerCaption.textContent = "Pool Empty";
+          tickerName.textContent = "RESET POOL TO DRAW AGAIN";
+        } else if (!dayRecord.draw1) {
+          mainSpinBtn.disabled = false;
+          centerSpinBtn.disabled = false;
+          mainSpinBtn.textContent = "Spin for 1st Prize";
+          tickerCaption.textContent = `${dayPrizes.label} • 1st Draw`;
+          tickerName.textContent = "READY TO SPIN";
+        } else if (!dayRecord.draw2) {
+          mainSpinBtn.disabled = false;
+          centerSpinBtn.disabled = false;
+          mainSpinBtn.textContent = "Spin for 2nd Prize";
+          tickerCaption.textContent = `${dayPrizes.label} • 2nd Draw`;
+          tickerName.textContent = "READY FOR 2ND SPIN";
+        } else {
+          mainSpinBtn.disabled = true;
+          centerSpinBtn.disabled = true;
+          mainSpinBtn.textContent = "Both Prizes Drawn Today";
+          tickerCaption.textContent = `${dayPrizes.label} Complete`;
+          tickerName.textContent = "SELECT ANOTHER DATE";
+        }
+      }
+
+      // --- DRAW WHEEL ON CANVAS ---
+      function drawWheel() {
+        const w = wheelCanvas.width;
+        const h = wheelCanvas.height;
+        const cx = w / 2;
+        const cy = h / 2;
+        const radius = cx - 14;
+
+        ctx.clearRect(0, 0, w, h);
+
+        // Outer bezel ring
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius + 10, 0, Math.PI * 2);
+        ctx.fillStyle = "#D40511";
+        ctx.fill();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#FFCC00";
+        ctx.stroke();
+
+        const count = availableNames.length;
+        if (count === 0) {
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.fillStyle = "#2c2c2c";
+          ctx.fill();
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "900 32px -apple-system, sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("POOL EMPTY", cx, cy - 75);
+          return;
+        }
+
+        const sliceAngle = (Math.PI * 2) / count;
+
+        let fontSize = 24;
+        if (count > 120) fontSize = 11;
+        else if (count > 90) fontSize = 13;
+        else if (count > 60) fontSize = 16;
+        else if (count > 35) fontSize = 19;
+        else if (count > 18) fontSize = 22;
+
+        for (let i = 0; i < count; i++) {
+          const startAngle = currentAngle + i * sliceAngle;
+          const endAngle = startAngle + sliceAngle;
+
+          let colorIdx = i % SLICE_COLORS.length;
+          if (i === count - 1 && colorIdx === 0) {
+            colorIdx = 1;
+          }
+          const palette = SLICE_COLORS[colorIdx];
+
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.arc(cx, cy, radius, startAngle, endAngle);
+          ctx.closePath();
+          ctx.fillStyle = palette.bg;
+          ctx.fill();
+
+          ctx.lineWidth = count > 80 ? 1 : 2;
+          ctx.strokeStyle = "rgba(0,0,0,0.2)";
+          ctx.stroke();
+
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(startAngle + sliceAngle / 2);
+          ctx.textAlign = "right";
+          ctx.textBaseline = "middle";
+          ctx.fillStyle = palette.text;
+          ctx.font = `800 ${fontSize}px -apple-system, BlinkMacSystemFont, sans-serif`;
+
+          const label = availableNames[i];
+          ctx.fillText(label, radius - 16, 0);
+          ctx.restore();
+        }
+      }
+
+      function getIndexAtPointer(angle) {
+        const count = availableNames.length;
+        if (count === 0) return -1;
+        const sliceAngle = (Math.PI * 2) / count;
+        const pointerAngle = -Math.PI / 2;
+        let rel = (pointerAngle - angle) % (Math.PI * 2);
+        if (rel < 0) rel += Math.PI * 2;
+        return Math.floor(rel / sliceAngle) % count;
+      }
+
+      // --- SPIN MECHANISM ---
+      function startSpin() {
+        if (isSpinning || availableNames.length === 0) return;
+
+        const dayRecord = drawHistory[selectedDate] || {};
+        if (dayRecord.draw1 && dayRecord.draw2) return;
+
+        ensureAudio();
+        isSpinning = true;
+        mainSpinBtn.disabled = true;
+        centerSpinBtn.disabled = true;
+        dateSelect.disabled = true;
+
+        const drawNum = !dayRecord.draw1 ? 1 : 2;
+        const dayPrizes = prizesByDate[selectedDate];
+        const prizeWon = drawNum === 1 ? dayPrizes.prize1 : dayPrizes.prize2;
+
+        tickerCaption.textContent = `Drawing ${drawNum === 1 ? "1st" : "2nd"} Prize...`;
+
+        const extraSpins = (6 + Math.random() * 3) * Math.PI * 2;
+        const randomOffset = Math.random() * Math.PI * 2;
+        const startAngle = currentAngle;
+        const targetAngle = startAngle + extraSpins + randomOffset;
+
+        const duration = 5200;
+        const startTime = performance.now();
+        let lastTickIndex = getIndexAtPointer(currentAngle);
+
+        function animate(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          const easeOut = 1 - Math.pow(1 - progress, 4);
+          currentAngle = startAngle + (targetAngle - startAngle) * easeOut;
+
+          drawWheel();
+
+          const currentIdx = getIndexAtPointer(currentAngle);
+          if (currentIdx !== -1) {
+            tickerName.textContent = availableNames[currentIdx];
+            if (currentIdx !== lastTickIndex) {
+              playTick();
+              lastTickIndex = currentIdx;
+            }
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            isSpinning = false;
+            dateSelect.disabled = false;
+
+            const winningIdx = getIndexAtPointer(currentAngle);
+            const winningName = availableNames[winningIdx];
+            tickerName.textContent = winningName;
+
+            pendingWinner = {
+              name: winningName,
+              drawNum: drawNum,
+              prize: prizeWon
+            };
+
+            playWinSound();
+            launchConfetti();
+            showWinnerModal(pendingWinner);
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      centerSpinBtn.onclick = startSpin;
+      mainSpinBtn.onclick = startSpin;
+
+      // --- WINNER MODAL & CONFIRMATION ---
+      function showWinnerModal(winnerObj) {
+        modalDrawBadge.textContent = `${winnerObj.drawNum === 1 ? "1st" : "2nd"} Draw Winner • ${prizesByDate[selectedDate].label}`;
+        modalWinnerName.textContent = winnerObj.name;
+        modalPrizeName.textContent = winnerObj.prize;
+        winnerModal.classList.add("open");
+      }
+
+      confirmWinnerBtn.onclick = () => {
+        if (!pendingWinner) return;
+
+        if (!drawHistory[selectedDate]) {
+          drawHistory[selectedDate] = {};
+        }
+        drawHistory[selectedDate][`draw${pendingWinner.drawNum}`] = {
+          name: pendingWinner.name,
+          prize: pendingWinner.prize
+        };
+        localStorage.setItem("raffleHistory", JSON.stringify(drawHistory));
+
+        availableNames = availableNames.filter(n => n !== pendingWinner.name);
+        const removedList = allNames.filter(n => !availableNames.includes(n));
+        localStorage.setItem("raffleRemovedNames", JSON.stringify(removedList));
+
+        pendingWinner = null;
+        winnerModal.classList.remove("open");
+        stopConfetti();
+        updateUIForDate();
+        drawWheel();
+      };
+
+      redrawBtn.onclick = () => {
+        pendingWinner = null;
+        winnerModal.classList.remove("open");
+        stopConfetti();
+        updateUIForDate();
+      };
+
+      // --- RESET ALL NAMES ---
+      resetAllBtn.onclick = () => {
+        if (isSpinning) return;
+        const ok = confirm("Reinstate ALL names back into the wheel pool?");
+        if (!ok) return;
+
+        availableNames = [...allNames];
+        localStorage.removeItem("raffleRemovedNames");
+        updateUIForDate();
+        drawWheel();
+      };
+
+      // --- HISTORY MODAL ---
+      function renderHistory() {
+        historyList.innerHTML = "";
+        const dates = Object.keys(drawHistory).sort();
+
+        const validDates = dates.filter(d => drawHistory[d] && (drawHistory[d].draw1 || drawHistory[d].draw2));
+        if (validDates.length === 0) {
+          historyList.innerHTML = `<div class="empty-state">No winners drawn yet.</div>`;
+          return;
+        }
+
+        validDates.forEach(dk => {
+          const rec = drawHistory[dk];
+          const label = prizesByDate[dk] ? prizesByDate[dk].label : formatDisplayDate(dk);
+
+          const card = document.createElement("div");
+          card.className = "history-day-card";
+
+          let rowsHtml = `<div class="history-day-title">${label}</div>`;
+          if (rec.draw1) {
+            rowsHtml += `
+              <div class="history-item">
+                <div>
+                  <div class="history-winner-name">${rec.draw1.name}</div>
+                  <div class="history-prize-name">1st Draw: ${rec.draw1.prize}</div>
+                </div>
+              </div>
+            `;
+          }
+          if (rec.draw2) {
+            rowsHtml += `
+              <div class="history-item">
+                <div>
+                  <div class="history-winner-name">${rec.draw2.name}</div>
+                  <div class="history-prize-name">2nd Draw: ${rec.draw2.prize}</div>
+                </div>
+              </div>
+            `;
+          }
+
+          card.innerHTML = rowsHtml;
+          historyList.appendChild(card);
+        });
+      }
+
+      historyBtn.onclick = () => {
+        renderHistory();
+        historyModal.classList.add("open");
+      };
+
+      closeHistoryBtn.onclick = () => {
+        historyModal.classList.remove("open");
+      };
+
+      clearHistoryBtn.onclick = () => {
+        const ok = confirm("Clear all recorded winners history? (You can also reset the name pool separately.)");
+        if (!ok) return;
+        drawHistory = {};
+        localStorage.removeItem("raffleHistory");
+        renderHistory();
+        updateUIForDate();
+      };
+
+      // --- CONFETTI EFFECT ---
+      const confettiCanvas = document.getElementById("confettiCanvas");
+      const cCtx = confettiCanvas.getContext("2d");
+      let confettiPieces = [];
+      let confettiAnimId = null;
+
+      function launchConfetti() {
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+        confettiPieces = [];
+        const colors = ["#D40511", "#FFCC00", "#FFFFFF", "#2e7d32"];
+
+        for (let i = 0; i < 120; i++) {
+          confettiPieces.push({
+            x: Math.random() * confettiCanvas.width,
+            y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+            w: 8 + Math.random() * 8,
+            h: 6 + Math.random() * 6,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            vy: 2.5 + Math.random() * 4,
+            vx: -1.5 + Math.random() * 3,
+            rot: Math.random() * Math.PI * 2,
+            vRot: -0.1 + Math.random() * 0.2
+          });
+        }
+
+        function stepConfetti() {
+          cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+          confettiPieces.forEach(p => {
+            p.y += p.vy;
+            p.x += p.vx;
+            p.rot += p.vRot;
+            if (p.y > confettiCanvas.height) {
+              p.y = -15;
+              p.x = Math.random() * confettiCanvas.width;
+            }
+            cCtx.save();
+            cCtx.translate(p.x, p.y);
+            cCtx.rotate(p.rot);
+            cCtx.fillStyle = p.color;
+            cCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            cCtx.restore();
+          });
+          confettiAnimId = requestAnimationFrame(stepConfetti);
+        }
+        cancelAnimationFrame(confettiAnimId);
+        stepConfetti();
+      }
+
+      function stopConfetti() {
+        cancelAnimationFrame(confettiAnimId);
+        cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+
+      initApp();
+    });
+  </script>
+</body>
+</html>
