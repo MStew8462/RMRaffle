@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#D40511">
   <title>Royal Mail Christmas 2026</title>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --bg-color: #18191c;
@@ -43,55 +45,72 @@
     .header-floating-actions {
       position: absolute; top: 10px; right: 14px; display: flex; align-items: center; gap: 8px; z-index: 5;
     }
-    .header-actions { display: flex; align-items: center; gap: 8px; }
     .hdr-btn {
-      background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.35); color: white;
-      font-size: 14px; font-weight: 800; padding: 7px 14px; border-radius: 20px; cursor: pointer;
+      background: rgba(0, 0, 0, 0.52); border: 1px solid rgba(255, 255, 255, 0.35); color: white;
+      font-size: 13.5px; font-weight: 800; padding: 7px 14px; border-radius: 20px; cursor: pointer;
       display: flex; align-items: center; gap: 5px; backdrop-filter: blur(4px);
     }
-    .hdr-btn:active { background: rgba(0, 0, 0, 0.7); }
+    .hdr-btn:active { background: rgba(0, 0, 0, 0.75); }
     .hdr-btn.icon-only { width: 36px; height: 36px; padding: 0; justify-content: center; border-radius: 50%; font-size: 16px; }
+    .hdr-btn.gold-outline { border-color: var(--rm-yellow); color: var(--rm-yellow); }
 
-    /* MAIN LAYOUT (RESPONSIVE FOR SURFACE PRO LANDSCAPE & PORTRAIT) */
-    .main-wrap {
+    .hidden { display: none !important; }
+
+    /* =========================================
+       PUBLIC STAFF HISTORY VIEW (DEFAULT)
+       ========================================= */
+    #publicHistoryView {
+      width: 100%; max-width: 780px; margin: 0 auto; padding: 18px 16px 60px 16px; flex: 1;
+    }
+    .public-section-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);
+    }
+    .public-section-title {
+      font-size: 1.15rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.6px; color: var(--rm-yellow);
+    }
+    .sync-status {
+      font-size: 11.5px; font-weight: 700; color: var(--sub-text);
+    }
+
+    /* HISTORY CARDS (SHARED BY PUBLIC VIEW & MANAGER VIEW) */
+    .history-day-card {
+      background: var(--surface-elevated); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.28); border: 1px solid var(--border-color);
+    }
+    .history-day-title {
+      font-size: 14.5px; font-weight: 900; color: var(--rm-yellow); margin-bottom: 8px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .history-item {
+      display: flex; justify-content: space-between; align-items: center; padding: 9px 0;
+      border-top: 1px solid var(--border-color); font-size: 14px; gap: 10px;
+    }
+    .history-winner-name { font-weight: 900; color: #ffffff; font-size: 17px; }
+    .history-prize-name { font-size: 13.5px; color: var(--sub-text); font-weight: 600; margin-top: 2px; }
+    .empty-state {
+      text-align: center; padding: 50px 20px; color: var(--sub-text); font-weight: 700;
+      background: var(--surface-elevated); border-radius: 12px; border: 1px solid var(--border-color);
+    }
+
+    /* =========================================
+       MANAGER WHEEL COCKPIT VIEW (PIN UNLOCKED)
+       ========================================= */
+    #managerWheelView {
       width: 100%; max-width: 1120px; margin: 0 auto; padding: 14px 18px 24px 18px;
       flex: 1; display: flex; flex-direction: column; gap: 14px; justify-content: center;
     }
+    .dashboard-grid { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+    .controls-column { display: flex; flex-direction: column; gap: 14px; }
+    .wheel-column { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-    .dashboard-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      width: 100%;
-    }
-
-    .controls-column {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .wheel-column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Surface Pro Landscape Two-Column Cockpit */
     @media (min-width: 840px) {
       .dashboard-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.05fr;
-        align-items: center;
-        gap: 24px;
+        display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; gap: 24px;
       }
-      .header-banner-img {
-        max-height: 135px;
-      }
+      .header-banner-img { max-height: 135px; }
     }
 
-    /* DATE & PRIZE CARD */
     .draw-card {
       background: var(--surface-elevated); border-radius: 14px; padding: 14px 16px;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color);
@@ -111,7 +130,6 @@
       padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 800; text-align: right; white-space: nowrap;
     }
 
-    /* PRIZE SLOTS */
     .prizes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .prize-box {
       background: var(--surface-input); border: 2px solid var(--border-color); border-radius: 10px;
@@ -137,7 +155,6 @@
     }
     .reset-single-draw-btn:active { background: var(--rm-red); color: white; }
 
-    /* LIVE TICKER BAR */
     .ticker-bar {
       background: var(--surface-elevated); border: 2px solid var(--rm-red); border-radius: 14px;
       padding: 10px 16px; text-align: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -148,7 +165,6 @@
       display: flex; align-items: center; justify-content: center; margin-top: 2px;
     }
 
-    /* WHEEL AREA */
     .wheel-stage {
       position: relative; width: 100%; max-width: 490px; aspect-ratio: 1 / 1; margin: 0 auto;
       display: flex; align-items: center; justify-content: center;
@@ -170,7 +186,6 @@
     .spin-center-btn:active:not(:disabled) { transform: scale(0.93); }
     .spin-center-btn:disabled { background: #4a4d54; border-color: #777; cursor: not-allowed; opacity: 0.9; }
 
-    /* ACTION CONTROLS */
     .bottom-controls { display: flex; gap: 10px; width: 100%; }
     .primary-spin-btn {
       flex: 2; padding: 16px 18px; background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark));
@@ -186,7 +201,37 @@
     }
     .secondary-btn:active { background: var(--surface-input); }
 
-    /* WINNER OVERLAY MODAL — EXTRA LARGE FOR DELIVERY OFFICE VISIBILITY */
+    /* PIN LOGIN MODAL */
+    #pinModal {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px);
+      z-index: 110; display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    #pinModal.open { display: flex; }
+    .pin-card {
+      background: var(--surface-elevated); width: 100%; max-width: 360px; border-radius: 20px;
+      padding: 26px 22px; text-align: center; border: 2px solid var(--rm-yellow);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+    }
+    .pin-title { font-size: 1.2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; color: #fff; }
+    .pin-sub { font-size: 13px; color: var(--sub-text); margin-bottom: 18px; }
+    .pin-input {
+      width: 100%; padding: 14px; font-size: 26px; font-weight: 900; text-align: center;
+      letter-spacing: 10px; border-radius: 12px; border: 2px solid var(--border-color);
+      background: var(--surface-input); color: #fff; outline: none; margin-bottom: 12px;
+    }
+    .pin-input:focus { border-color: var(--rm-yellow); }
+    .pin-error { color: #ff8a90; font-size: 13px; font-weight: 700; min-height: 18px; margin-bottom: 10px; }
+    .pin-btn-row { display: flex; gap: 10px; }
+    .pin-submit {
+      flex: 1; padding: 13px; background: var(--rm-red); color: #fff; border: none;
+      border-radius: 12px; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer;
+    }
+    .pin-cancel {
+      flex: 1; padding: 13px; background: var(--surface-input); color: #ccc; border: 1px solid var(--border-color);
+      border-radius: 12px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer;
+    }
+
+    /* WINNER OVERLAY MODAL */
     #winnerModal {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(8px);
       z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px;
@@ -203,12 +248,8 @@
       text-transform: uppercase; letter-spacing: 1.2px; padding: 6px 18px; border-radius: 24px; margin-bottom: 16px;
     }
     .winner-big-name {
-      font-size: clamp(3.4rem, 11vw, 7.2rem);
-      font-weight: 900;
-      color: #ffffff;
-      line-height: 1.04;
-      margin: 12px 0 22px 0;
-      word-break: break-word;
+      font-size: clamp(3.4rem, 11vw, 7.2rem); font-weight: 900; color: #ffffff;
+      line-height: 1.04; margin: 12px 0 22px 0; word-break: break-word;
       text-shadow: 0 4px 18px rgba(0, 0, 0, 0.65);
     }
     .winner-prize-box {
@@ -231,32 +272,11 @@
       border: 1px dashed rgba(255, 138, 144, 0.4); border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer;
     }
 
-    /* CONFETTI CANVAS */
     #confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 105; }
-
-    /* HISTORY FULL-SCREEN MODAL */
-    #historyModal {
-      position: fixed; inset: 0; background: var(--bg-color); z-index: 90; display: flex; flex-direction: column;
-      transform: translateY(100%); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    #historyModal.open { transform: translateY(0); }
-    .modal-header {
-      background: linear-gradient(135deg, var(--rm-red), var(--rm-red-dark)); color: white; padding: 12px 16px;
-      display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--rm-yellow);
-    }
-    .history-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 16px 60px 16px; max-width: 760px; width: 100%; margin: 0 auto; }
-    .history-day-card {
-      background: var(--surface-elevated); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); border: 1px solid var(--border-color);
-    }
-    .history-day-title { font-size: 14px; font-weight: 900; color: var(--rm-yellow); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.4px; }
-    .history-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid var(--border-color); font-size: 14px; gap: 10px; }
-    .history-winner-name { font-weight: 900; color: #ffffff; font-size: 15.5px; }
-    .history-prize-name { font-size: 13px; color: var(--sub-text); font-weight: 600; }
-    .empty-state { text-align: center; padding: 40px 20px; color: var(--sub-text); font-weight: 700; }
     #errorBox {
       background: rgba(212, 5, 17, 0.2); border: 1px solid var(--rm-red); color: #ff999e;
       padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 700; display: none;
+      max-width: 1120px; margin: 10px auto 0 auto; width: calc(100% - 28px);
     }
   </style>
 </head>
@@ -266,17 +286,31 @@
     <div class="banner-inner">
       <img src="banner.png" alt="Royal Mail Christmas 2026" class="header-banner-img">
       <div class="header-floating-actions">
-        <button id="soundToggle" class="hdr-btn icon-only" aria-label="Toggle Sound">🔊</button>
-        <button id="historyBtn" class="hdr-btn">History</button>
+        <!-- Shown to Public Staff -->
+        <button id="openPinModalBtn" class="hdr-btn gold-outline">Manager Login</button>
+
+        <!-- Shown when Manager is unlocked -->
+        <button id="soundToggle" class="hdr-btn icon-only hidden" aria-label="Toggle Sound">🔊</button>
+        <button id="managerToggleViewBtn" class="hdr-btn hidden">View History</button>
+        <button id="managerLockBtn" class="hdr-btn gold-outline hidden">Lock</button>
       </div>
     </div>
   </header>
 
-  <div class="main-wrap">
-    <div id="errorBox"></div>
+  <div id="errorBox"></div>
 
+  <!-- 1. PUBLIC STAFF VIEW (HISTORY ONLY) -->
+  <div id="publicHistoryView">
+    <div class="public-section-header">
+      <span class="public-section-title">Winners History</span>
+      <span class="sync-status" id="syncStatusText">Live Results</span>
+    </div>
+    <div id="historyList"></div>
+  </div>
+
+  <!-- 2. MANAGER WHEEL COCKPIT VIEW (PIN REQUIRED) -->
+  <div id="managerWheelView" class="hidden">
     <div class="dashboard-grid">
-      <!-- LEFT / TOP COLUMN: DATE, PRIZES, TICKER & SPIN BUTTONS -->
       <div class="controls-column">
         <div class="draw-card">
           <div class="date-row">
@@ -323,7 +357,6 @@
         </div>
       </div>
 
-      <!-- RIGHT / BOTTOM COLUMN: WHEEL -->
       <div class="wheel-column">
         <div class="wheel-stage">
           <div class="wheel-pointer" id="wheelPointer"></div>
@@ -334,8 +367,23 @@
     </div>
   </div>
 
+  <!-- MANAGER PIN MODAL -->
+  <div id="pinModal">
+    <div class="pin-card">
+      <div class="pin-title">Manager Login</div>
+      <div class="pin-sub">Enter PIN to unlock the raffle wheel</div>
+      <input type="password" inputmode="numeric" maxlength="6" id="pinInput" class="pin-input" placeholder="••••">
+      <div class="pin-error" id="pinError"></div>
+      <div class="pin-btn-row">
+        <button class="pin-cancel" id="pinCancelBtn">Cancel</button>
+        <button class="pin-submit" id="pinSubmitBtn">Unlock</button>
+      </div>
+    </div>
+  </div>
+
   <canvas id="confettiCanvas"></canvas>
 
+  <!-- BIG WINNER MODAL -->
   <div id="winnerModal">
     <div class="winner-card">
       <div class="winner-draw-label" id="modalDrawBadge">Draw 1 Winner</div>
@@ -345,32 +393,44 @@
         <div class="winner-prize-text" id="modalPrizeName">Prize Description</div>
       </div>
       <div class="winner-actions">
-        <button class="confirm-winner-btn" id="confirmWinnerBtn">Confirm Winner & Remove Name</button>
+        <button class="confirm-winner-btn" id="confirmWinnerBtn">Confirm Winner & Save</button>
         <button class="redraw-btn" id="redrawBtn">Mistake / Redraw (Keep Name in Pool)</button>
         <button class="exclude-leaver-btn" id="excludeLeaverBtn">Person Left Company (Remove & Redraw)</button>
       </div>
     </div>
   </div>
 
-  <div id="historyModal">
-    <div class="modal-header">
-      <div style="font-weight: 900; font-size: 1.05rem; letter-spacing: 0.5px;">WINNERS HISTORY</div>
-      <div class="header-actions">
-        <button id="clearHistoryBtn" class="hdr-btn">Clear All</button>
-        <button id="closeHistoryBtn" class="hdr-btn">Close</button>
-      </div>
-    </div>
-    <div class="history-scroll" id="historyList"></div>
-  </div>
-
   <script>
+    // =========================================================
+    // SUPABASE & MANAGER PIN CONFIGURATION
+    // =========================================================
+    const SUPABASE_URL = "https://hzcvjslcqbxsflxzfldv.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6Y3Zqc2xjcWJ4c2ZseHpmbGR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU2MzUwMTUsImV4cCI6MjExMTIxMTAxNX0.o-LdrllPD9rv6W2w6cF8V4nnxVN4kSvOTsR_I3Bfk74";
+    const MANAGER_PIN = "2026";
+    // =========================================================
+
     document.addEventListener("DOMContentLoaded", () => {
+      // Initialize Supabase if keys are configured
+      const hasSupabase = SUPABASE_URL.startsWith("http") && SUPABASE_ANON_KEY.length > 20;
+      const supabaseClient = hasSupabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+      // UI Elements
+      const openPinModalBtn = document.getElementById("openPinModalBtn");
       const soundToggle = document.getElementById("soundToggle");
-      const historyBtn = document.getElementById("historyBtn");
-      const closeHistoryBtn = document.getElementById("closeHistoryBtn");
-      const clearHistoryBtn = document.getElementById("clearHistoryBtn");
-      const historyModal = document.getElementById("historyModal");
+      const managerToggleViewBtn = document.getElementById("managerToggleViewBtn");
+      const managerLockBtn = document.getElementById("managerLockBtn");
+
+      const publicHistoryView = document.getElementById("publicHistoryView");
+      const managerWheelView = document.getElementById("managerWheelView");
       const historyList = document.getElementById("historyList");
+      const syncStatusText = document.getElementById("syncStatusText");
+
+      const pinModal = document.getElementById("pinModal");
+      const pinInput = document.getElementById("pinInput");
+      const pinError = document.getElementById("pinError");
+      const pinCancelBtn = document.getElementById("pinCancelBtn");
+      const pinSubmitBtn = document.getElementById("pinSubmitBtn");
+
       const dateSelect = document.getElementById("dateSelect");
       const poolCountBadge = document.getElementById("poolCountBadge");
       const prizeBox1 = document.getElementById("prizeBox1");
@@ -390,6 +450,7 @@
       const mainSpinBtn = document.getElementById("mainSpinBtn");
       const resetAllBtn = document.getElementById("resetAllBtn");
       const errorBox = document.getElementById("errorBox");
+
       const winnerModal = document.getElementById("winnerModal");
       const modalDrawBadge = document.getElementById("modalDrawBadge");
       const modalWinnerName = document.getElementById("modalWinnerName");
@@ -398,7 +459,11 @@
       const redrawBtn = document.getElementById("redrawBtn");
       const excludeLeaverBtn = document.getElementById("excludeLeaverBtn");
 
+      // App State
+      let isManager = sessionStorage.getItem("rmRaffleManager") === "true";
+      let managerShowingHistory = false;
       let allNames = [];
+      let excludedNames = [];
       let availableNames = [];
       let prizesByDate = {};
       let drawHistory = {};
@@ -415,6 +480,77 @@
         { bg: "#FFCC00", text: "#18191c" }
       ];
 
+      // --- VIEW & AUTH ROUTING ---
+      function updateAuthUI() {
+        if (isManager) {
+          openPinModalBtn.classList.add("hidden");
+          soundToggle.classList.remove("hidden");
+          managerToggleViewBtn.classList.remove("hidden");
+          managerLockBtn.classList.remove("hidden");
+
+          if (managerShowingHistory) {
+            publicHistoryView.classList.remove("hidden");
+            managerWheelView.classList.add("hidden");
+            managerToggleViewBtn.textContent = "Back to Wheel";
+          } else {
+            publicHistoryView.classList.add("hidden");
+            managerWheelView.classList.remove("hidden");
+            managerToggleViewBtn.textContent = "View History";
+            drawWheel();
+          }
+        } else {
+          openPinModalBtn.classList.remove("hidden");
+          soundToggle.classList.add("hidden");
+          managerToggleViewBtn.classList.add("hidden");
+          managerLockBtn.classList.add("hidden");
+
+          publicHistoryView.classList.remove("hidden");
+          managerWheelView.classList.add("hidden");
+        }
+        renderHistory();
+      }
+
+      openPinModalBtn.onclick = () => {
+        pinInput.value = "";
+        pinError.textContent = "";
+        pinModal.classList.add("open");
+        setTimeout(() => pinInput.focus(), 100);
+      };
+
+      pinCancelBtn.onclick = () => pinModal.classList.remove("open");
+
+      function attemptPinLogin() {
+        if (pinInput.value.trim() === MANAGER_PIN) {
+          isManager = true;
+          managerShowingHistory = false;
+          sessionStorage.setItem("rmRaffleManager", "true");
+          pinModal.classList.remove("open");
+          updateAuthUI();
+        } else {
+          pinError.textContent = "Incorrect PIN. Try again.";
+          pinInput.value = "";
+          pinInput.focus();
+        }
+      }
+
+      pinSubmitBtn.onclick = attemptPinLogin;
+      pinInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") attemptPinLogin();
+      });
+
+      managerToggleViewBtn.onclick = () => {
+        managerShowingHistory = !managerShowingHistory;
+        updateAuthUI();
+      };
+
+      managerLockBtn.onclick = () => {
+        isManager = false;
+        managerShowingHistory = false;
+        sessionStorage.removeItem("rmRaffleManager");
+        updateAuthUI();
+      };
+
+      // --- SOUND & HAPTICS ---
       soundToggle.onclick = () => {
         soundEnabled = !soundEnabled;
         soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
@@ -472,6 +608,7 @@
         });
       }
 
+      // --- CSV PARSING ---
       function parseCSVLine(line) {
         const result = [];
         let cur = "";
@@ -496,6 +633,118 @@
         return `${days[dt.getDay()]} ${dt.getDate()} ${months[dt.getMonth()]}`;
       }
 
+      // --- SUPABASE + LOCAL STORAGE SYNC ---
+      async function loadStateFromCloud() {
+        if (!supabaseClient) {
+          syncStatusText.textContent = "Local Mode (Add Supabase Keys to Sync)";
+          const savedHistory = localStorage.getItem("raffleHistory");
+          if (savedHistory) drawHistory = JSON.parse(savedHistory);
+          excludedNames = JSON.parse(localStorage.getItem("raffleExcludedNames") || "[]");
+          recomputeAvailableNames();
+          return;
+        }
+
+        syncStatusText.textContent = "Syncing...";
+        const [drawsRes, exclRes] = await Promise.all([
+          supabaseClient.from("raffle_draws").select("*"),
+          supabaseClient.from("raffle_excluded").select("*")
+        ]);
+
+        if (drawsRes.error) throw new Error("Supabase error: " + drawsRes.error.message);
+        if (exclRes.error) throw new Error("Supabase error: " + exclRes.error.message);
+
+        drawHistory = {};
+        (drawsRes.data || []).forEach(row => {
+          if (!drawHistory[row.draw_date]) drawHistory[row.draw_date] = {};
+          drawHistory[row.draw_date][`draw${row.draw_num}`] = {
+            name: row.winner_name,
+            prize: row.prize_name
+          };
+        });
+
+        excludedNames = (exclRes.data || []).map(r => r.name);
+        recomputeAvailableNames();
+        syncStatusText.textContent = "Synced Live";
+      }
+
+      function recomputeAvailableNames() {
+        const wonNames = new Set();
+        Object.values(drawHistory).forEach(day => {
+          if (day.draw1) wonNames.add(day.draw1.name);
+          if (day.draw2) wonNames.add(day.draw2.name);
+        });
+        const excludedSet = new Set(excludedNames);
+        availableNames = allNames.filter(n => !wonNames.has(n) && !excludedSet.has(n));
+      }
+
+      async function saveDrawRecord(dateKey, drawNum, winnerName, prizeName) {
+        if (!drawHistory[dateKey]) drawHistory[dateKey] = {};
+        drawHistory[dateKey][`draw${drawNum}`] = { name: winnerName, prize: prizeName };
+        recomputeAvailableNames();
+
+        if (!supabaseClient) {
+          localStorage.setItem("raffleHistory", JSON.stringify(drawHistory));
+          return;
+        }
+
+        const { error } = await supabaseClient.from("raffle_draws").upsert({
+          id: `${dateKey}_${drawNum}`,
+          draw_date: dateKey,
+          draw_num: drawNum,
+          winner_name: winnerName,
+          prize_name: prizeName
+        });
+        if (error) alert("Failed to save to Supabase: " + error.message);
+      }
+
+      async function deleteDrawRecord(dateKey, drawNum) {
+        if (drawHistory[dateKey]) {
+          delete drawHistory[dateKey][`draw${drawNum}`];
+          if (!drawHistory[dateKey].draw1 && !drawHistory[dateKey].draw2) {
+            delete drawHistory[dateKey];
+          }
+        }
+        recomputeAvailableNames();
+
+        if (!supabaseClient) {
+          localStorage.setItem("raffleHistory", JSON.stringify(drawHistory));
+          return;
+        }
+
+        const { error } = await supabaseClient
+          .from("raffle_draws")
+          .delete()
+          .eq("id", `${dateKey}_${drawNum}`);
+        if (error) alert("Failed to delete from Supabase: " + error.message);
+      }
+
+      async function addExcludedName(name) {
+        if (!excludedNames.includes(name)) excludedNames.push(name);
+        recomputeAvailableNames();
+
+        if (!supabaseClient) {
+          localStorage.setItem("raffleExcludedNames", JSON.stringify(excludedNames));
+          return;
+        }
+
+        const { error } = await supabaseClient.from("raffle_excluded").upsert({ name });
+        if (error) alert("Failed to exclude name in Supabase: " + error.message);
+      }
+
+      async function resetPoolInCloud() {
+        excludedNames = [];
+        // Note: Resetting pool clears excluded leavers and frees all names back onto the wheel,
+        // while keeping past History intact unless you also clear draws.
+        // If you want Reset Pool to reinstate ALL names from names.csv even if previously drawn:
+        if (!supabaseClient) {
+          localStorage.removeItem("raffleExcludedNames");
+        } else {
+          await supabaseClient.from("raffle_excluded").delete().neq("name", "");
+        }
+        availableNames = [...allNames];
+      }
+
+      // --- INITIALIZE APP ---
       async function initApp() {
         try {
           const cacheBuster = "?v=" + new Date().getTime();
@@ -523,15 +772,23 @@
             };
           });
 
-          const savedHistory = localStorage.getItem("raffleHistory");
-          if (savedHistory) drawHistory = JSON.parse(savedHistory);
-
-          const savedRemoved = JSON.parse(localStorage.getItem("raffleRemovedNames") || "[]");
-          availableNames = allNames.filter(n => !savedRemoved.includes(n));
-
+          await loadStateFromCloud();
           populateDateDropdown();
           updateUIForDate();
-          drawWheel();
+          updateAuthUI();
+
+          // Subscribe to live updates so staff phones update automatically
+          if (supabaseClient) {
+            supabaseClient
+              .channel("raffle-live")
+              .on("postgres_changes", { event: "*", schema: "public", table: "raffle_draws" }, async () => {
+                await loadStateFromCloud();
+                updateUIForDate();
+                renderHistory();
+                if (!isSpinning) drawWheel();
+              })
+              .subscribe();
+          }
         } catch (err) {
           errorBox.style.display = "block";
           errorBox.textContent = "Error: " + err.message;
@@ -565,31 +822,25 @@
         updateUIForDate();
       };
 
-      window.resetSingleDraw = function(dateKey, drawNum) {
-        if (isSpinning) return;
+      // Reset a single draw (Manager only)
+      window.resetSingleDraw = async function(dateKey, drawNum) {
+        if (!isManager || isSpinning) return;
         const rec = drawHistory[dateKey];
         if (!rec || !rec[`draw${drawNum}`]) return;
 
         const winnerName = rec[`draw${drawNum}`].name;
-        const choice = confirm(`Reset Draw ${drawNum} (${winnerName})?\n\nPress OK to clear this draw.`);
-        if (!choice) return;
+        if (!confirm(`Reset Draw ${drawNum} (${winnerName})?\n\nPress OK to clear this draw.`)) return;
 
         const putBack = confirm(`Put "${winnerName}" BACK into the wheel pool?\n\n• OK = Yes (spun by mistake)\n• Cancel = No (left company)`);
 
-        delete drawHistory[dateKey][`draw${drawNum}`];
-        if (!drawHistory[dateKey].draw1 && !drawHistory[dateKey].draw2) delete drawHistory[dateKey];
-        localStorage.setItem("raffleHistory", JSON.stringify(drawHistory));
-
-        if (putBack && allNames.includes(winnerName) && !availableNames.includes(winnerName)) {
-          availableNames.push(winnerName);
-          availableNames = allNames.filter(n => availableNames.includes(n));
-          const removedList = allNames.filter(n => !availableNames.includes(n));
-          localStorage.setItem("raffleRemovedNames", JSON.stringify(removedList));
+        await deleteDrawRecord(dateKey, drawNum);
+        if (!putBack) {
+          await addExcludedName(winnerName);
         }
 
         updateUIForDate();
         drawWheel();
-        if (historyModal.classList.contains("open")) renderHistory();
+        renderHistory();
       };
 
       function updateUIForDate() {
@@ -644,6 +895,7 @@
         }
       }
 
+      // --- WHEEL DRAWING ---
       function drawWheel() {
         const w = wheelCanvas.width, h = wheelCanvas.height, cx = w / 2, cy = h / 2, radius = cx - 14;
         ctx.clearRect(0, 0, w, h);
@@ -703,8 +955,9 @@
         return Math.floor(rel / sliceAngle) % count;
       }
 
+      // --- SPIN MECHANISM ---
       function startSpin() {
-        if (isSpinning || availableNames.length === 0) return;
+        if (!isManager || isSpinning || availableNames.length === 0) return;
         const dayRecord = drawHistory[selectedDate] || {};
         if (dayRecord.draw1 && dayRecord.draw2) return;
 
@@ -763,49 +1016,55 @@
         winnerModal.classList.add("open");
       }
 
-      confirmWinnerBtn.onclick = () => {
+      confirmWinnerBtn.onclick = async () => {
         if (!pendingWinner) return;
-        if (!drawHistory[selectedDate]) drawHistory[selectedDate] = {};
-        drawHistory[selectedDate][`draw${pendingWinner.drawNum}`] = { name: pendingWinner.name, prize: pendingWinner.prize };
-        localStorage.setItem("raffleHistory", JSON.stringify(drawHistory));
+        confirmWinnerBtn.disabled = true;
+        confirmWinnerBtn.textContent = "Saving...";
+        await saveDrawRecord(selectedDate, pendingWinner.drawNum, pendingWinner.name, pendingWinner.prize);
+        confirmWinnerBtn.disabled = false;
+        confirmWinnerBtn.textContent = "Confirm Winner & Save";
 
-        availableNames = availableNames.filter(n => n !== pendingWinner.name);
-        const removedList = allNames.filter(n => !availableNames.includes(n));
-        localStorage.setItem("raffleRemovedNames", JSON.stringify(removedList));
-
-        pendingWinner = null; winnerModal.classList.remove("open");
-        clearConfetti(); updateUIForDate(); drawWheel();
+        pendingWinner = null;
+        winnerModal.classList.remove("open");
+        clearConfetti();
+        updateUIForDate();
+        drawWheel();
+        renderHistory();
       };
 
       redrawBtn.onclick = () => {
-        pendingWinner = null; winnerModal.classList.remove("open");
-        clearConfetti(); updateUIForDate();
+        pendingWinner = null;
+        winnerModal.classList.remove("open");
+        clearConfetti();
+        updateUIForDate();
       };
 
-      excludeLeaverBtn.onclick = () => {
+      excludeLeaverBtn.onclick = async () => {
         if (!pendingWinner) return;
         const leaverName = pendingWinner.name;
         if (!confirm(`Permanently remove "${leaverName}" from the wheel pool without awarding the prize, and spin again?`)) return;
-        availableNames = availableNames.filter(n => n !== leaverName);
-        const removedList = allNames.filter(n => !availableNames.includes(n));
-        localStorage.setItem("raffleRemovedNames", JSON.stringify(removedList));
-        pendingWinner = null; winnerModal.classList.remove("open");
-        clearConfetti(); updateUIForDate(); drawWheel();
+        await addExcludedName(leaverName);
+        pendingWinner = null;
+        winnerModal.classList.remove("open");
+        clearConfetti();
+        updateUIForDate();
+        drawWheel();
       };
 
-      resetAllBtn.onclick = () => {
-        if (isSpinning) return;
+      resetAllBtn.onclick = async () => {
+        if (!isManager || isSpinning) return;
         if (!confirm("Reinstate ALL names from names.csv back into the wheel pool?")) return;
-        availableNames = [...allNames];
-        localStorage.removeItem("raffleRemovedNames");
-        updateUIForDate(); drawWheel();
+        await resetPoolInCloud();
+        updateUIForDate();
+        drawWheel();
       };
 
+      // --- RENDER HISTORY (PUBLIC & MANAGER) ---
       function renderHistory() {
         historyList.innerHTML = "";
         const validDates = Object.keys(drawHistory).sort().filter(d => drawHistory[d] && (drawHistory[d].draw1 || drawHistory[d].draw2));
         if (validDates.length === 0) {
-          historyList.innerHTML = `<div class="empty-state">No winners drawn yet.</div>`;
+          historyList.innerHTML = `<div class="empty-state">No winners drawn yet. Check back after the daily draw!</div>`;
           return;
         }
         validDates.forEach(dk => {
@@ -814,20 +1073,18 @@
           const card = document.createElement("div");
           card.className = "history-day-card";
           let rowsHtml = `<div class="history-day-title">${label}</div>`;
-          if (rec.draw1) rowsHtml += `<div class="history-item"><div><div class="history-winner-name">${rec.draw1.name}</div><div class="history-prize-name">Draw 1: ${rec.draw1.prize}</div></div><button class="reset-single-draw-btn" onclick="resetSingleDraw('${dk}', 1)">Reset</button></div>`;
-          if (rec.draw2) rowsHtml += `<div class="history-item"><div><div class="history-winner-name">${rec.draw2.name}</div><div class="history-prize-name">Draw 2: ${rec.draw2.prize}</div></div><button class="reset-single-draw-btn" onclick="resetSingleDraw('${dk}', 2)">Reset</button></div>`;
+          if (rec.draw1) {
+            const resetBtn = isManager ? `<button class="reset-single-draw-btn" onclick="resetSingleDraw('${dk}', 1)">Reset</button>` : "";
+            rowsHtml += `<div class="history-item"><div><div class="history-winner-name">${rec.draw1.name}</div><div class="history-prize-name">Draw 1: ${rec.draw1.prize}</div></div>${resetBtn}</div>`;
+          }
+          if (rec.draw2) {
+            const resetBtn = isManager ? `<button class="reset-single-draw-btn" onclick="resetSingleDraw('${dk}', 2)">Reset</button>` : "";
+            rowsHtml += `<div class="history-item"><div><div class="history-winner-name">${rec.draw2.name}</div><div class="history-prize-name">Draw 2: ${rec.draw2.prize}</div></div>${resetBtn}</div>`;
+          }
           card.innerHTML = rowsHtml;
           historyList.appendChild(card);
         });
       }
-
-      historyBtn.onclick = () => { renderHistory(); historyModal.classList.add("open"); };
-      closeHistoryBtn.onclick = () => historyModal.classList.remove("open");
-      clearHistoryBtn.onclick = () => {
-        if (!confirm("Clear all recorded winners history?")) return;
-        drawHistory = {}; localStorage.removeItem("raffleHistory");
-        renderHistory(); updateUIForDate();
-      };
 
       // --- SINGLE EXPLOSIVE POP OF CONFETTI ---
       const confettiCanvas = document.getElementById("confettiCanvas");
@@ -842,15 +1099,12 @@
         const originX = confettiCanvas.width / 2;
         const originY = confettiCanvas.height * 0.45;
 
-        // Single burst of 75 pieces radiating outward from center
         for (let i = 0; i < 160; i++) {
           const angle = Math.random() * Math.PI * 2;
           const speed = 10 + Math.random() * 18;
           confettiPieces.push({
-            x: originX,
-            y: originY,
-            w: 9 + Math.random() * 7,
-            h: 6 + Math.random() * 5,
+            x: originX, y: originY,
+            w: 9 + Math.random() * 7, h: 6 + Math.random() * 5,
             color: colors[Math.floor(Math.random() * colors.length)],
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed - 4,
@@ -866,7 +1120,6 @@
         function stepPop() {
           cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
           let activeCount = 0;
-
           confettiPieces.forEach(p => {
             if (p.alpha <= 0) return;
             activeCount++;
@@ -876,7 +1129,6 @@
             p.y += p.vy;
             p.rot += p.vRot;
             p.alpha -= p.fade;
-
             if (p.alpha > 0) {
               cCtx.save();
               cCtx.globalAlpha = Math.max(0, p.alpha);
@@ -887,12 +1139,8 @@
               cCtx.restore();
             }
           });
-
-          if (activeCount > 0) {
-            confettiAnimId = requestAnimationFrame(stepPop);
-          } else {
-            cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-          }
+          if (activeCount > 0) confettiAnimId = requestAnimationFrame(stepPop);
+          else cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         }
         cancelAnimationFrame(confettiAnimId);
         stepPop();
